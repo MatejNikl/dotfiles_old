@@ -75,5 +75,6 @@ alias webdev-ssh='ssh niklmate@local.webdev.fit.cvut.cz'
 #alias ja='java -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
 
 #alias star='ssh niklmate@star.fit.cvut.cz'
+alias tddc90='ssh matni856@marsix.ida.liu.se'
 
 setopt extended_glob
