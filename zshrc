@@ -40,14 +40,13 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump colored-man catimg colorize history lol nyan vim-interaction vi-mode web-search)
+plugins=(autojump colored-man catimg colorize history nyan vim-interaction vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.shell_prompt.sh
 #ZLE_RPROMPT_INDENT=0
 #LPROMPT_INDENT=0
 
-PATH=$PATH:/usr/sbin:/sbin:/home/asd/bin
 eval `dircolors ~/dotfiles/dir_colors`
 
 # Customize to your needs...
@@ -68,14 +67,13 @@ alias egrep='egrep --color=auto'
 
 alias ll='ls -l'
 alias la='ll -a'
-alias tmux='TERM=gnome-256color tmux'
+#alias tmux='TERM=gnome-256color tmux'
 
 alias fray1='ssh niklmate@fray1.fit.cvut.cz'
-alias vmmni='ssh root@vmmni02'
 alias webdev-ssh='ssh niklmate@local.webdev.fit.cvut.cz'
-alias jca='javac -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
-alias ja='java -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
+#alias jca='javac -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
+#alias ja='java -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
 
-alias star='ssh niklmate@star.fit.cvut.cz'
+#alias star='ssh niklmate@star.fit.cvut.cz'
 
 setopt extended_glob
