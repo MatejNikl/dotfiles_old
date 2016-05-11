@@ -8,18 +8,23 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'VundleVim/Vundle.vim'
+
 Plugin 'antlypls/vim-colors-codeschool'
 
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
-Plugin 'easymotion/vim-easymotion'
 Plugin 'xuhdev/vim-latex-live-preview' "latex live preview
+Plugin 'jvirtanen/vim-octave' "octave syntax
+Plugin 'tbastos/vim-lua'
+"Plugin 'easymotion/vim-easymotion'
+Plugin 'justinmk/vim-sneak'
 
 "Plugin 'vim-scripts/CSApprox'
 "Plugin 'tomasr/molokai'
 "Plugin 'zeis/vim-kolor'
 "Plugin 'skroll/vim-taghighlight'
-"Plugin 'godlygeek/tabular'
+Plugin 'godlygeek/tabular'
 "Plugin 'Valloric/YouCompleteMe'
 "Plugin 'Valloric/ListToggle'
 "Plugin 'SirVer/ultisnips'
@@ -32,7 +37,7 @@ Plugin 'xuhdev/vim-latex-live-preview' "latex live preview
 "Plugin 'edkolev/promptline.vim' "generate prompt for zsh (bash)
 "Plugin 'gavinbeatty/dragvisuals.vim'
 "Plugin 'octol/vim-cpp-enhanced-highlight'
-"Plugin 'nanotech/jellybeans.vim'
+Plugin 'nanotech/jellybeans.vim'
 ""Plugin 'Konfekt/FastFold'
 
 " All of your Plugins must be added before the following line
@@ -51,7 +56,9 @@ call vundle#end()            " required
 " ===========[ color scheme! ]================================================
     
     set background=dark
-    colorscheme codeschool
+    "colorscheme codeschool
+    colorscheme jellybeans
+    let g:jellybeans_use_term_italics = 1
     " relative line numbers
     set relativenumber
     " actual line number for current line
@@ -132,27 +139,27 @@ call vundle#end()            " required
 
 " ===========[ EasyMotion ]==============================================
     " Disable default mappings
-    let g:EasyMotion_do_mapping = 0
-    let g:EasyMotion_smartcase = 1
-
-    map <Leader> <Plug>(easymotion-prefix)
-    nmap <Leader>s <Plug>(easymotion-s)
-
-    map <Leader>l <Plug>(easymotion-lineforward)
-    map <Leader>j <Plug>(easymotion-j)
-    map <Leader>k <Plug>(easymotion-k)
-    map <Leader>h <Plug>(easymotion-linebackward)
-
-    let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+"    let g:EasyMotion_do_mapping = 0
+"    let g:EasyMotion_smartcase = 1
+"
+"    map <Leader> <Plug>(easymotion-prefix)
+"    nmap <Leader>s <Plug>(easymotion-s)
+"
+"    map <Leader>l <Plug>(easymotion-lineforward)
+"    map <Leader>j <Plug>(easymotion-j)
+"    map <Leader>k <Plug>(easymotion-k)
+"    map <Leader>h <Plug>(easymotion-linebackward)
+"
+"    let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 " ===========[ Tabularize maps ]==============================================
 
-"    nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-"    vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
-"    nmap <Leader>a, :Tabularize /,\s*\zs/l0l1<CR>
-"    vmap <Leader>a, :Tabularize /,\s*\zs/l0l1<CR>
-"    nmap <Leader>a< :Tabularize /,/l0c1<CR>
-"    vmap <Leader>a< :Tabularize /,/l0c1<CR>
+    nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+    vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+    nmap <Leader>a, :Tabularize /,\s*\zs/l0l1<CR>
+    vmap <Leader>a, :Tabularize /,\s*\zs/l0l1<CR>
+    nmap <Leader>a< :Tabularize /,/l0c1<CR>
+    vmap <Leader>a< :Tabularize /,/l0c1<CR>
 "    nmap <Leader>am :Tabularize /\w\+\zs \ze\s*\w\+/l0<CR>:Tabularize / m_.*/l0<CR>
 "    vmap <Leader>am :Tabularize /\w\+\zs \ze\s*\w\+/l0<CR>:Tabularize / m_.*/l0<CR>
 "    nmap <Leader>af :Tabularize /^[^(]*\zs\s\+\~\?\S\+\ze\s*(/l0l0<CR>
@@ -210,8 +217,8 @@ call vundle#end()            " required
 
 " ===========[ I'm sick of typing :%s/.../.../g ]=============================
 
-    nmap S :%s//g<LEFT><LEFT>
-    vmap S :s//g<LEFT><LEFT>
+    " nmap S :%s//g<LEFT><LEFT>
+    " vmap S :s//g<LEFT><LEFT>
 
 
 " ===========[ Switching between buffers/tabs ]===============================

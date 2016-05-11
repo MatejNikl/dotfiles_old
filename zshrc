@@ -40,12 +40,13 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump colored-man catimg colorize history nyan vim-interaction vi-mode)
+plugins=(autojump colored-man-pages catimg colorize history nyan vim-interaction vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.shell_prompt.sh
 #ZLE_RPROMPT_INDENT=0
 #LPROMPT_INDENT=0
+bindkey '^[[Z' reverse-menu-complete
 
 eval `dircolors ~/dotfiles/dir_colors`
 
@@ -71,6 +72,7 @@ alias la='ll -a'
 
 alias fray1='ssh niklmate@fray1.fit.cvut.cz'
 alias webdev-ssh='ssh niklmate@local.webdev.fit.cvut.cz'
+alias meta='ssh matejnikl@skirit.metacentrum.cz'
 #alias jca='javac -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
 #alias ja='java -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
 
@@ -78,3 +80,9 @@ alias webdev-ssh='ssh niklmate@local.webdev.fit.cvut.cz'
 alias tddc90='ssh matni856@marsix.ida.liu.se'
 
 setopt extended_glob
+
+
+export PATH=/usr/local/cuda-7.5/bin:$PATH
+#export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH
+
+. /home/aoe/torch/install/bin/torch-activate
