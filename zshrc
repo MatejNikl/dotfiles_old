@@ -1,88 +1,69 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/dotfiles/oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# Oh-my-zsh theme.
 ZSH_THEME="jtriley"
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
+# Red dots displayed while waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Loaded plugins.
+plugins=(autojump colored-man-pages catimg colorize cp history nyan vim-interaction vi-mode)
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(autojump colored-man-pages catimg colorize history nyan vim-interaction vi-mode)
+# Bind 'jk' to command mode.
+bindkey -M viins 'jk' vi-cmd-mode
 
+# Load zmv batch renaming.
+autoload zmv
+alias zmv='noglob zmv -W'
+
+# Use oh-my-zsh!
 source $ZSH/oh-my-zsh.sh
-#source ~/.shell_prompt.sh
-#ZLE_RPROMPT_INDENT=0
-#LPROMPT_INDENT=0
+
+# Shift+Tab for reverse completion menu traversal.
 bindkey '^[[Z' reverse-menu-complete
 
+# Use extended globbing (such as **/foo or ^foo), see
+# http://www.refining-linux.org/archives/37/ZSH-Gem-2-Extended-globbing-and-expansion/
+setopt extended_glob
+
+# Cool colors is ls, dir, grep, ...
 eval `dircolors ~/dotfiles/dir_colors`
 
-# Customize to your needs...
-alias xclip='xclip -selection clipboard'
+# ... and use those colors actually.
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+
+# Aptitude aliases.
 alias sa='sudo aptitude'
 alias sai='sa install'
 alias sau='sa update'
 alias sap='sa upgrade'
 alias saup='sau; sap'
 
-alias ls='ls --color=auto'
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
-
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
+# Meh.
 alias ll='ls -l'
 alias la='ll -a'
-#alias tmux='TERM=gnome-256color tmux'
+alias vlc='vlc --avcodec-hw vaapi --vout glx'
 
-alias fray1='ssh niklmate@fray1.fit.cvut.cz'
-alias webdev-ssh='ssh niklmate@local.webdev.fit.cvut.cz'
-alias meta='ssh matejnikl@skirit.metacentrum.cz'
-#alias jca='javac -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
-#alias ja='java -cp .:/home/asd/coursera/algs4/algs4/algs4.jar:/home/asd/coursera/algs4/algs4/stdlib.jar'
+# Git aliases.
+alias gs='git status'
+alias ga='git add'
+alias gb='git branch'
+alias gc='git commit'
+alias gd='git diff'
+alias go='git checkout'
+alias gps='git push'
+alias gpl='git pull'
 
-#alias star='ssh niklmate@star.fit.cvut.cz'
-alias tddc90='ssh matni856@marsix.ida.liu.se'
+# Gurobi setup
+export GUROBI_HOME=/opt/gurobi/gurobi702/linux64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GUROBI_HOME/lib
 
-setopt extended_glob
-
-
-export PATH=/usr/local/cuda-7.5/bin:$PATH
-#export LD_LIBRARY_PATH=/usr/local/cuda-7.5/lib64:$LD_LIBRARY_PATH
-
+# Torch setup
 . /home/aoe/torch/install/bin/torch-activate
+
+# Miniconda setup
+export PATH="/home/aoe/miniconda3/bin:$PATH"
