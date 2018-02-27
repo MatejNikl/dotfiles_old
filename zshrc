@@ -47,6 +47,7 @@ alias saup='sau; sap'
 alias ll='ls -l'
 alias la='ll -a'
 alias vlc='vlc --avcodec-hw vaapi --vout glx'
+alias vim='nvim'
 
 # Git aliases.
 alias gs='git status'

@@ -1,60 +1,60 @@
-" be iMproved
-set nocompatible
+if &compatible
+  set nocompatible
+endif
 
-" Vundles requirement
-filetype off
+" Add minpac plugin manager + plugins
+source ~/.vim/packages.vim
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
+" Deocomplete settings
+let g:deoplete#enable_at_startup = 1
+" Don't show the scratch window
+ set completeopt-=preview
+" Hide the scratch window after selecting completion
+" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" Deoplete c/c++ settings
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang'
 
-Plugin 'antlypls/vim-colors-codeschool'
 
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-commentary'
-Plugin 'xuhdev/vim-latex-live-preview' "latex live preview
-Plugin 'jvirtanen/vim-octave' "octave syntax
-Plugin 'tbastos/vim-lua'
-"Plugin 'easymotion/vim-easymotion'
-Plugin 'justinmk/vim-sneak'
+" Asynchronous Lint Engine
+let g:ale_enabled = 1
+nmap <silent> <c-j> <Plug>(ale_next_wrap)
+nmap <silent> <c-k> <Plug>(ale_previous_wrap)
+nmap <silent> <script> <leader>l :call ToggleLocationList()<CR>
+" let g:ale_sign_column_always = 1
 
-"Plugin 'vim-scripts/CSApprox'
-"Plugin 'tomasr/molokai'
-"Plugin 'zeis/vim-kolor'
-"Plugin 'skroll/vim-taghighlight'
-Plugin 'godlygeek/tabular'
-"Plugin 'Valloric/YouCompleteMe'
-"Plugin 'Valloric/ListToggle'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'honza/vim-snippets'
-"Plugin 'taglist.vim'
-"Plugin 'vim-scripts/gnuplot.vim' "gnuplot syntax highlighting
-"Plugin 'kien/ctrlp.vim'
-"Plugin 'nixon/vim-vmath' "Calculate sum, avg, min, max..
-"Plugin 'bling/vim-airline'
-"Plugin 'edkolev/promptline.vim' "generate prompt for zsh (bash)
-"Plugin 'gavinbeatty/dragvisuals.vim'
-"Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'nanotech/jellybeans.vim'
-""Plugin 'Konfekt/FastFold'
+" Neosnippet expand on tab
+imap <silent> <TAB> <Plug>(neosnippet_expand_or_jump)
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
 
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" Lightline settings
+set laststatus=2
+let g:lightline = { 'colorscheme': 'jellybeans' }
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'warning',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
+let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+
+" call camelcasemotion#CreateMotionMappings('<leader>')
+
+    set fileformat=unix
+    " no double period after .?! when using join command
+    set nojoinspaces
+
 
 
 " ===========[ color scheme! ]================================================
-    
+
     set background=dark
     "colorscheme codeschool
     colorscheme jellybeans
@@ -85,13 +85,14 @@ call vundle#end()            " required
 
     set colorcolumn=81
     set virtualedit=block
-    "set foldmethod=syntax
+    set foldmethod=syntax
     " keep cursor in the middle of the screen
     " set scrolloff=99999
     " Enable file type detection
     filetype plugin indent on
 
-    let mapleader = ","
+    let g:mapleader = "\<Space>"
+    let g:localmapleader = "\\"
     " exit insert mode
     inoremap jk <Esc>
 
@@ -117,27 +118,29 @@ call vundle#end()            " required
     nnoremap <silent> <leader>n :noh<CR>
 
     nnoremap //   /<C-R>/
-    nnoremap ///  /<C-R>/\<BAR>
-
-    " This rewires n and N to do the highlighing...
-    "nnoremap <silent> n n:call HLNext(0.4)<cr>
-    "nnoremap <silent> N N:call HLNext(0.4)<cr>
-
-    function! HLNext (blinktime)
-        set invcursorline
-        redraw
-        exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-        set invcursorline
-        redraw
-    endfunction
+    " nnoremap ///  /<C-R>/\<BAR>
 
 " ===========[ Makefile special settings ]====================================
 
-    if has("autocmd")
+    if has('autocmd')
         autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
     endif
 
-" ===========[ EasyMotion ]==============================================
+" ===========[ Lua special settings ]=========================================
+
+    if has("autocmd")
+        autocmd FileType lua setlocal ts=3 sts=3 sw=3
+    endif
+
+" ===========[ Tex special settings ]=========================================
+    set spelllang=en_us,cs
+
+    if has("autocmd")
+        autocmd FileType tex,plaintex,latex setlocal spell tw=80 | syntax spell toplevel
+        autocmd FileType gitcommit setlocal spell
+    endif
+
+" ===========[ EasyMotion ]===================================================
     " Disable default mappings
 "    let g:EasyMotion_do_mapping = 0
 "    let g:EasyMotion_smartcase = 1
@@ -186,26 +189,20 @@ call vundle#end()            " required
 "    nnoremap <c-s-{> :YcmCompleter GoTo<CR>
 "    " force recompile
 "    nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-
-
-" ===========[ TlistToggle ]==================================================
-
-"    nmap <c-h> :TlistToggle<CR>
-
+"
 " ===========[ Use persistent undo ]==========================================
 
     if has('persistent_undo')
         " Save all undo files in a single location (less messy, more risky)...
-        let myundodir='/tmp/.VIM_UNDO_FILES'
-        call system('mkdir -p ' . myundodir)
-        let &undodir=myundodir
+        let g:myundodir='/tmp/.VIM_UNDO_FILES'
+        call system('mkdir -p ' . g:myundodir)
+        let &undodir=g:myundodir
 
         " Save a lot of back-history...
         set undolevels=5000
 
         " Actually switch on persistent undo
         set undofile
-
     endif
 
 " ===========[ Goto last location in non-empty files ]========================
@@ -214,31 +211,31 @@ call vundle#end()            " required
                        \|  exe "normal! g`\""
                        \|  endif
 
-
-" ===========[ I'm sick of typing :%s/.../.../g ]=============================
-
-    " nmap S :%s//g<LEFT><LEFT>
-    " vmap S :s//g<LEFT><LEFT>
-
-
 " ===========[ Switching between buffers/tabs ]===============================
 
-"    nnoremap <Leader>bn :bn<CR>
-"    nnoremap <Leader>bp :bp<CR>
-"    nnoremap <Leader>tn :tabn<CR>
-"    nnoremap <Leader>tp :tabp<CR>
+    nnoremap <Leader>bn :bn<CR>
+    nnoremap <Leader>bp :bp<CR>
+    nnoremap <Leader>tn :tabn<CR>
+    nnoremap <Leader>tp :tabp<CR>
 
 " ===========[ Switching between windows ]====================================
 
-"    nmap <Leader>h <c-w>h
-"    nmap <Leader>j <c-w>j
-"    nmap <Leader>k <c-w>k
-"    nmap <Leader>l <c-w>l
+    nmap <Leader>h <c-w>h
+    nmap <Leader>j <c-w>j
+    nmap <Leader>k <c-w>k
+    nmap <Leader>l <c-w>l
+
+" ===========[ TagBar ]=======================================================
+    nnoremap <silent> <Leader>t :TagbarOpenAutoClose<CR>
+    let g:tagbar_left = 1      "spawn on the left
+    let g:tagbar_width = 30
+    let g:tagbar_autofocus = 1 "autojump to the tagbar when opened
+    let g:tagbar_compact = 1   "hide help
 
 " ===========[ ListToggle ]===================================================
 
-"    let g:lt_location_list_toggle_map = '<leader>o'
-"    let g:lt_quickfix_list_toggle_map = '<leader>q'
+"   let g:lt_location_list_toggle_map = '<leader>l'
+"   let g:lt_quickfix_list_toggle_map = '<leader>f'
 
 " ===========[ CtrlP ]========================================================
 
@@ -249,68 +246,12 @@ call vundle#end()            " required
 "  \ 'link': 'some_bad_symbolic_links',
 "  \ }
 
-
-" ===========[ VMath ]========================================================
-
-"    vmap <expr>  ++  VMATH_YankAndAnalyse()
-"    nmap         ++  vip++
-
 " ===========[ Strip trailing whitespaces ]===================================
     fun! StripTrailingWhitespaces()
-        let l = line(".")
-        let c = col(".")
+        let l:l = line('.')
+        let l:c = col('.')
         %s/\s\+$//e
-        call cursor(l, c)
+        call cursor(l:l, l:c)
     endfun
     nnoremap <F2> :call StripTrailingWhitespaces()<CR>
-
-" ===========[ Airline ]======================================================
-
-"    let g:airline#extensions#tabline#enabled=1
-"    let g:airline_theme='powerlineish'
-"    let g:airline_powerline_fonts=1
-"
-"    set laststatus=2
-
-
-" ===========[ Promptline ]===================================================
-"    " sections (a, b, c, x, y, z, warn) are optional
-"    let g:promptline_preset = {
-"            \'b' : [ promptline#slices#user() ],
-"            \'c' : [ promptline#slices#cwd() ],
-"            \'y' : [ promptline#slices#vcs_branch(), '%*' ],
-"            \'warn' : [ promptline#slices#last_exit_code() ]}
-"
-"    " available slices:
-"    "
-"    " promptline#slices#cwd() - current dir, truncated to 3 dirs. To configure: promptline#slices#cwd({ 'dir_limit': 4 })
-"    " promptline#slices#vcs_branch() - branch name only. by default only git branch is enabled. Use promptline#slices#vcs_branch({ 'hg': 1, 'svn': 1}) to enable check for svn and mercurial branches. Note that always checking if inside a branch slows down the prompt
-"    " promptline#slices#last_exit_code() - display exit code of last command if not zero
-"    " promptline#slices#jobs() - display number of shell jobs if more than zero
-"    " promptline#slices#battery() - display battery percentage (on OSX and linux) only if below 10%. Configure the threshold with promptline#slices#battery({ 'threshold': 25 })
-"    " promptline#slices#host()
-"    " promptline#slices#user()
-"    " promptline#slices#python_virtualenv() - display which virtual env is active (empty is none)
-"    " promptline#slices#git_status() - count of commits ahead/behind upstream, count of modified/added/unmerged files, symbol for clean branch and symbol for existing untraced files
-"    "
-"    " any command can be used in a slice, for example to print the output of whoami in section 'b':
-"    "       \'b' : [ '$(whoami)'],
-"    "
-"    " more than one slice can be placed in a section, e.g. print both host and user in section 'a':
-"    "       \'a': [ promptline#slices#host(), promptline#slices#user() ],
-"    "
-"    " to disable powerline symbols
-"    " `let g:promptline_powerline_symbols = 0`
-
-"============[ Make arrow keys move visual blocks around ]====================
-
-"    vmap  <expr>  <LEFT>   DVB_Drag('left')
-"    vmap  <expr>  <RIGHT>  DVB_Drag('right')
-"    vmap  <expr>  <DOWN>   DVB_Drag('down')
-"    vmap  <expr>  <UP>     DVB_Drag('up')
-"    vmap  <expr>  D        DVB_Duplicate()
-"    vmap  <expr>  <C-D>    DVB_Duplicate()
-"
-"    " Remove any introduced trailing whitespace after moving...
-"    let g:DVB_TrimWS = 1
-"
+    nnoremap <leader>g gqap
