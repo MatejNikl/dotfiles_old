@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 command! PackUpdate packadd minpac | call minpac#init() | source $MYVIMRC | call minpac#update()
 command! PackClean  packadd minpac | call minpac#init() | source $MYVIMRC | call minpac#clean()
 
@@ -12,6 +14,8 @@ endif
 
 " minpac handles itself.
 call minpac#add('k-takata/minpac', {'type': 'opt'})
+
+call minpac#add('dhruvasagar/vim-dotoo')
 
 " Autocomplete – base
 call minpac#add('Shougo/deoplete.nvim')
@@ -69,7 +73,9 @@ call minpac#add('majutsushi/tagbar')
 " Potentially usefull, but unused:
 
 "" Repeat for supported plugins
-"call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-repeat')
+
+call minpac#add('tpope/vim-surround')
 
 
 "call minpac#add('easymotion/vim-easymotion')
@@ -101,7 +107,6 @@ call minpac#add('majutsushi/tagbar')
 "call minpac#add('bkad/CamelCaseMotion')
 "call minpac#add('michaeljsmith/vim-indent-object')
 "call minpac#add('vim-scripts/argtextobj.vim')
-"call minpac#add('tpope/vim-surround')
 
 
 

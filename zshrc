@@ -68,3 +68,11 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GUROBI_HOME/lib
 
 # Miniconda setup
 export PATH="/home/aoe/miniconda3/bin:$PATH"
+
+# PyCharm setup
+export PATH="/opt/pycharm/bin:$PATH"
+
+# SMU lab 7-8
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+
+eval `gnome-keyring-daemon --start`

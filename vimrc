@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 if &compatible
   set nocompatible
 endif
@@ -22,7 +24,8 @@ let g:ale_enabled = 1
 nmap <silent> <c-j> <Plug>(ale_next_wrap)
 nmap <silent> <c-k> <Plug>(ale_previous_wrap)
 nmap <silent> <script> <leader>l :call ToggleLocationList()<CR>
-" let g:ale_sign_column_always = 1
+let g:ale_sign_column_always = 1
+let g:ale_cpp_clangcheck_options = '-- -Wall -std=c++14 -x c++'
 
 " Neosnippet expand on tab
 imap <silent> <TAB> <Plug>(neosnippet_expand_or_jump)
@@ -44,6 +47,12 @@ let g:lightline.component_type = {
       \     'linter_ok': 'left',
       \ }
 let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+
+
+" ==========[ C, C++ indetation ]============================================
+" parameters continuing on new line in same
+" column private: public: in struct/class
+    set cinoptions=(0,g0
 
 " call camelcasemotion#CreateMotionMappings('<leader>')
 
@@ -139,6 +148,11 @@ let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'lint
         autocmd FileType tex,plaintex,latex setlocal spell tw=80 | syntax spell toplevel
         autocmd FileType gitcommit setlocal spell
     endif
+
+" ===========[ .pl is prolog! ]=========================================
+    augroup filetypedetect
+        au! BufRead,BufNewFile *.pl setfiletype prolog
+    augroup END
 
 " ===========[ EasyMotion ]===================================================
     " Disable default mappings
